@@ -4,12 +4,13 @@
 
 <h1 align="center">OpenRelay</h1>
 
-<p align="center"><b>几百个免费 AI 模型配额，一键接入本地项目</b></p>
+<p align="center"><b>聚合本机与直连 AI 配额，一键接入本地项目</b></p>
 
 <p align="center">
   <a href="https://github.com/romgX/openrelay/releases/latest"><img src="https://img.shields.io/github/v/release/romgX/openrelay?color=blue&label=download" alt="Latest Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Open%20Core-blue" alt="License"></a>
-  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows-lightgrey" alt="Platform">
+  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey" alt="Platform">
+  <a href="https://openrelay.cc"><img src="https://img.shields.io/badge/forum-openrelay.cc-0070f3" alt="Community Forum"></a>
   <a href="https://t.me/openrelay_updates"><img src="https://img.shields.io/badge/Telegram-updates-blue?logo=telegram" alt="Telegram"></a>
   <a href="https://t.me/openrelay_chat"><img src="https://img.shields.io/badge/Telegram-chat-blue?logo=telegram" alt="Chat"></a>
 </p>
@@ -28,7 +29,7 @@ Claude Pro 只能在 Claude Desktop 用。Kiro 配额只能在 Kiro 用。Groq �
 
 **OpenRelay 打破这道墙。**
 
-- 帮你找到更多免费 AI 模型配额（Groq、Cerebras、SambaNova、Gemini——全免费、全自动发现）
+- 帮你发现和接入更多可用 AI 模型配额（Groq、Cerebras、SambaNova、Gemini 等，按供应商账户实际可用）
 - 帮你把免费或收费的配额接入你正在使用的 AI 工具
 - 一键配置 Claude Code、OpenClaw、Aider、Goose 等所有工具的模型
 
@@ -53,11 +54,11 @@ Claude Pro 只能在 Claude Desktop 用。Kiro 配额只能在 Kiro 用。Groq �
 
 ### 1. 自动发现你所有的 AI 配额
 
-启动 OpenRelay，它立刻找到你机器上每一份 AI 订阅和免费配额 — Claude Desktop、Claude Code、Kiro、Windsurf、Antigravity、OpenCode、VS Code Copilot、OpenAI Codex。所有配额任你调度，无需手动配置。
+启动 OpenRelay，它会接入你已经拥有的 AI 来源 — Claude Desktop、Claude Code、Kiro、Windsurf、Antigravity、OpenCode、VS Code Copilot、OpenAI Codex、Gemini CLI、Rovo Dev、QClaw 等。已发现的本地配额可在面板中统一管理；部分来源需要先登录原应用或配置 API Key。
 
-支持 24 个直连 API（Groq、Gemini、DeepSeek、Anthropic、Cloudflare AI、HuggingFace 等）— 输入一次 API Key，到处可用。
+支持 34 个直连 API 或本地端点（Groq、Gemini API、DeepSeek、Mistral、OpenRouter、LongCat、千帆、七牛、Anthropic API、Ollama 等）— 按供应商要求配置 API Key 或端点后可复用。
 
-**32 个提供商。一个面板。一个端点。**
+**45 个非虚拟提供商。一个面板。一个端点。**
 
 ### 2. 任意配额用在任意工具
 
@@ -86,9 +87,9 @@ ANTHROPIC_BASE_URL=http://localhost:18765/kiro
 
 不再手动编辑 `.zshrc`，不再来回倒腾环境变量。打开 Web 面板，选择 Provider，点一下开关：
 
-- **Claude Code** → 走 Kiro（免费 Claude Sonnet）
-- **Aider** → 走 Groq（免费，极速推理）
-- **Goose** → 走 Gemini API（免费，100 万上下文）
+- **Claude Code** → 走 Kiro（按你的 Kiro 账户额度）
+- **Aider** → 走 Groq（低延迟推理）
+- **Goose** → 走 Gemini API（大上下文模型）
 - **OpenCode** → 走 DeepSeek（最便宜的编程模型）
 
 重开终端，完事。每个工具都配好了。
@@ -106,7 +107,7 @@ Cursor 配额烧完了？Windsurf 额度用光了？别停下编码 — 无缝�
 
 在面板启动代理，IDE 无感切换。
 
-### 5. 组合配额，AI 永不停机
+### 5. 组合配额，减少手动切换
 
 把多个 Provider 的配额合并成一个虚拟模型：
 
@@ -114,7 +115,7 @@ Cursor 配额烧完了？Windsurf 额度用光了？别停下编码 — 无缝�
 "fast-group" = Groq (Llama 90B) + Cerebras (Llama 70B) + SambaNova (Llama 405B)
 ```
 
-Groq 免费额度用完 → 自动切到 Cerebras → 再切 SambaNova。**你的 AI 永不停机。** 跨 Provider 轮询确保最大可用时间，零手动切换。
+Groq 额度不可用 → 自动切到 Cerebras → 再切 SambaNova。跨 Provider 轮询和故障转移会继续使用你配置的可用额度，减少手动切换。
 
 ---
 
@@ -134,6 +135,25 @@ xattr -d com.apple.quarantine openrelay-macos
 
 > `xattr` 命令用于解除 macOS 对未签名程序的安全限制，否则会提示"无法打开"。
 
+**Linux**：
+
+- x64：[点击下载 openrelay-linux-x64](https://github.com/romgX/openrelay/releases/latest/download/openrelay-linux-x64)
+- ARM64 / aarch64：[点击下载 openrelay-linux-arm64](https://github.com/romgX/openrelay/releases/latest/download/openrelay-linux-arm64)
+
+然后终端执行对应文件：
+
+```bash
+# x64
+chmod +x openrelay-linux-x64
+./openrelay-linux-x64
+
+# ARM64 / aarch64
+chmod +x openrelay-linux-arm64
+./openrelay-linux-arm64
+```
+
+> Linux 支持的本地/CLI Provider：Claude Code、Kiro、Windsurf、OpenCode、VS Code Copilot、OpenAI Codex、Gemini CLI、Rovo Dev。Claude Desktop 和 Antigravity 目前无 Linux 版本。QClaw 取决于桌面应用和本地 gateway，可降级运行。凭证存取通过 `secret-tool`（gnome-keyring）或文件缓存。
+
 浏览器打开 `http://localhost:18765` — 一切在 Web 面板中管理，支持中英双语。
 
 > 觉得有用？给个 **Star** ⭐ 是对我们最大的支持！
@@ -142,11 +162,13 @@ xattr -d com.apple.quarantine openrelay-macos
 
 ## 安全
 
-**凭据不离开本机** — 所有 token、cookie、API key 仅在本地内存中使用，不会上传到任何服务器。
+**凭据留在本机** — 应用 token/cookie 从你的机器读取，只用于连接原供应商。通过 OpenRelay 添加的 API Key 存储在本机 `~/.openrelay/` 配置中。
 
-**直连 AI 后端** — 请求从你的机器直接发送到 AI Provider，没有中转服务器。
+**直连 AI 后端** — AI 请求从你的机器直接发送到所选 Provider，OpenRelay 官方服务器不在请求链路中。
 
-**不记录请求内容** — 消息内容从不被日志记录、缓存或持久化。
+**默认不记录提示词内容** — 消息内容默认不会写入日志、缓存或持久化；只有你显式开启本地 request-shape 调试时才会输出排障信息。
+
+**最小产品网络请求** — 许可证和更新检查可能访问 OpenRelay/GitHub 端点，但不会携带 Provider 凭据或对话内容。
 
 **可审计** — 凭据处理代码（[cookie.ts](src/cookie.ts)）可查看审计。
 
@@ -158,18 +180,19 @@ xattr -d com.apple.quarantine openrelay-macos
 
 ## 社区
 
-- LINUX DO：[linux.do](https://linux.do)
+- **官方社区论坛**：[openrelay.cc](https://openrelay.cc) — 攻略、Provider 评测、跳蚤市场、Bug 反馈
+- QQ 群：**1087788461**
 - Telegram 讨论群：[t.me/openrelay_chat](https://t.me/openrelay_chat)
 - Telegram 更新频道：[t.me/openrelay_updates](https://t.me/openrelay_updates)
 - 问题反馈：[GitHub Issues](https://github.com/romgX/openrelay/issues)
 
-点个 **Star** ⭐ + 加入 [Telegram 群](https://t.me/openrelay_chat)，有机会领 **1 个月 Pro 体验码**。
+点个 **Star** ⭐ + 加入 [社区](https://openrelay.cc) 或 [Telegram 群](https://t.me/openrelay_chat)，有机会领 **1 个月 Pro 体验码**。
 
 ## 许可证
 
 Open Core 模式：
 - **框架部分**（代理、格式转换、配置）：[MIT](LICENSE)
-- **Pro 功能**（模型组合、无限请求）：[商业授权](COMMERCIAL-LICENSE.txt)
+- **Pro 功能**（模型组合、更高请求量上限）：[商业授权](COMMERCIAL-LICENSE.txt)
 
 ---
 
@@ -185,7 +208,7 @@ Claude Pro only works in Claude Desktop. Kiro quota only works in Kiro. Groq is 
 
 **OpenRelay breaks the silos.**
 
-- Find more free AI quota (Groq, Cerebras, SambaNova, Gemini — all free, all auto-discovered)
+- Find and connect more usable AI quota (Groq, Cerebras, SambaNova, Gemini, and others, depending on your provider accounts)
 - Connect any quota to any tool you're already using
 - One-click configure Claude Code, OpenClaw, Aider, Goose, and more
 
@@ -210,11 +233,11 @@ Claude Pro only works in Claude Desktop. Kiro quota only works in Kiro. Groq is 
 
 ### 1. Auto-discover all your AI quotas
 
-Launch OpenRelay and it instantly finds every AI subscription and free quota on your machine — Claude Desktop, Claude Code, Kiro, Windsurf, Antigravity, OpenCode, VS Code Copilot, OpenAI Codex. All quotas at your command, zero manual configuration.
+Launch OpenRelay and it connects the AI sources already available to you — Claude Desktop, Claude Code, Kiro, Windsurf, Antigravity, OpenCode, VS Code Copilot, OpenAI Codex, Gemini CLI, Rovo Dev, QClaw, and more. Discovered local quotas are managed from one dashboard; some sources require logging in to the original app or configuring an API key first.
 
-Plus 24 direct API providers (Groq, Gemini, DeepSeek, Anthropic, Cloudflare AI, HuggingFace, etc.) — enter an API key once and it's available everywhere.
+Plus 34 direct API or local providers (Groq, Gemini API, DeepSeek, Mistral, OpenRouter, LongCat, Qianfan, Qiniu, Anthropic API, Ollama, and more) — enter an API key or endpoint once and it can be reused across tools.
 
-**32 providers. One dashboard. One endpoint.**
+**45 non-virtual providers. One dashboard. One endpoint.**
 
 ### 2. Use any quota in any tool
 
@@ -243,9 +266,9 @@ ANTHROPIC_BASE_URL=http://localhost:18765/kiro
 
 No more editing `.zshrc` or juggling environment variables. Open the Web dashboard, pick a provider for each tool, flip a switch:
 
-- **Claude Code** → route through Kiro (free Claude Sonnet)
-- **Aider** → route through Groq (free, blazing fast)
-- **Goose** → route through Gemini API (free 1M context)
+- **Claude Code** → route through Kiro (using your Kiro account quota)
+- **Aider** → route through Groq (low-latency inference)
+- **Goose** → route through Gemini API (large-context models)
 - **OpenCode** → route through DeepSeek (cheapest coding model)
 
 Reopen your terminal. Done. Every tool is configured.
@@ -263,61 +286,78 @@ Cursor quota burned through? Windsurf credits gone? Don't stop coding — seamle
 
 Start the proxy from the dashboard. Your IDE doesn't know the difference.
 
-### 5. Combine quotas into unstoppable model groups
+### 5. Combine quotas with failover
 
-This is the killer feature. Take quotas from multiple providers and merge them into a single virtual model:
+Take quotas from multiple providers and merge them into a single virtual model:
 
 ```
 "fast-group" = Groq (Llama 90B) + Cerebras (Llama 70B) + SambaNova (Llama 405B)
 ```
 
-When Groq's free quota runs out → automatic failover to Cerebras → then SambaNova. **Your AI never stops.** Round-robin across providers ensures maximum uptime with zero manual switching.
+When Groq quota is unavailable → automatic failover to Cerebras → then SambaNova. Round-robin and failover keep using the providers you configured while quota remains, reducing manual switching.
 
 ---
 
-## Supported Providers (32 total)
+## Supported Providers (45 non-virtual)
 
-### IDE Providers (8) — auto-extracted, no API key needed
+### Local / CLI / IDE Providers (11)
 
-| Provider | Free Quota | Notes |
-|----------|-----------|-------|
-| **Claude Desktop** | Your subscription | Claude Pro/Max |
-| **Claude Code** | Your subscription | Claude Pro/Max |
-| **Kiro** (AWS) | 50 credits/month + 500 new user | Free Claude Sonnet |
-| **Windsurf** (Codeium) | Unlimited autocomplete + 25 credits/month | |
-| **Antigravity** | Included with IDE | Requires IDE running |
-| **OpenCode** | Unlimited | Built-in GLM-4.7 |
-| **VS Code Copilot** | Your subscription | GitHub Copilot |
-| **OpenAI Codex** | Limited time free (GPT-5.4) | REST + WebSocket dual transport |
+These use local app sessions, CLI auth files, or local gateways when available.
 
-### Direct API Providers (24) — bring your own key
+| Provider | Credential source | Notes |
+|----------|-------------------|-------|
+| **Claude Desktop** | Local Claude Desktop session | Claude Pro/Max account quota |
+| **Claude Code** | Claude Code credentials | Claude account quota |
+| **Kiro** (AWS) | Kiro app session | Kiro account quota |
+| **Windsurf** (Codeium) | Windsurf session | IDE quota and models |
+| **Antigravity** | Antigravity app session | Gemini-compatible route |
+| **OpenCode** | OpenCode local config | Built-in route |
+| **VS Code Copilot** | VS Code / GitHub Copilot session | Copilot account quota |
+| **OpenAI Codex** | Codex local auth | REST + WebSocket transport |
+| **Gemini CLI** | `~/.gemini/oauth_creds.json` | Gemini CLI OAuth |
+| **Rovo Dev** | Atlassian / Rovo Dev config or env | Rovo account quota |
+| **QClaw** | QClaw local gateway | Agent gateway; best for QClaw workflows |
 
-| Provider | Free Tier |
-|----------|-----------|
-| **Groq** | 30 RPM, up to 14,400 req/day |
-| **Cerebras** | 1M tokens/day |
-| **SambaNova** | 200K tokens/day |
-| **Gemini** | 1M context, generous free tier |
-| **OpenRouter** | 20 RPM, 50 req/day, 30+ models |
-| **DeepSeek** | 5M tokens signup credit |
-| **Mistral** | 1B tokens/month |
-| **xAI (Grok)** | $25 signup + $150/month |
-| **Together AI** | $100 signup credit |
-| **Fireworks** | $1 signup credit |
-| **SiliconFlow** | 20M tokens + free models |
-| **Zhipu (GLM)** | GLM-4-Flash permanently free |
-| **DashScope** (Alibaba) | ¥450 credit, 200+ models |
-| **Volcengine** (ByteDance) | ¥100 credit, 2M tokens/day |
-| **Moonshot** (Kimi) | 1.5M tokens/day |
-| **NVIDIA NIM** | ~1000 credits |
-| **GitHub Models** | 50 req/day (GPT-4o) |
-| **Baichuan** | ¥80 signup credit |
-| **Stepfun** | Trial credits |
-| **MiniMax** | Signup credits |
-| **Hunyuan** (Tencent) | Hunyuan-Lite free |
-| **Anthropic** | Pay-as-you-go (native format passthrough) |
-| **Cloudflare AI** | 10,000 Neurons/day, no credit card |
-| **HuggingFace** | Rate-limited serverless, thousands of models |
+### API / Local Providers (34)
+
+These use your provider API key, provider account, or local endpoint. Quotas and free tiers are controlled by each upstream provider and can change.
+
+| Provider | Type |
+|----------|------|
+| **Groq** | OpenAI-compatible API |
+| **Cerebras** | OpenAI-compatible API |
+| **OpenRouter** | OpenAI-compatible API |
+| **SambaNova** | OpenAI-compatible API |
+| **Gemini API** | OpenAI-compatible API |
+| **Mistral** | OpenAI-compatible API |
+| **xAI** | OpenAI-compatible API |
+| **SiliconFlow** | OpenAI-compatible API |
+| **Zhipu / GLM** | OpenAI-compatible API |
+| **Together AI** | OpenAI-compatible API |
+| **DashScope** | OpenAI-compatible API |
+| **DeepSeek** | OpenAI-compatible API |
+| **NVIDIA NIM** | OpenAI-compatible API |
+| **GitHub Models** | OpenAI-compatible API |
+| **Fireworks** | OpenAI-compatible API |
+| **Volcengine** | OpenAI-compatible API |
+| **Qianfan** | OpenAI-compatible API |
+| **Qiniu** | OpenAI-compatible API |
+| **Moonshot** | OpenAI-compatible API |
+| **Baichuan** | OpenAI-compatible API |
+| **Stepfun** | OpenAI-compatible API |
+| **MiniMax** | OpenAI-compatible API |
+| **Hunyuan** | OpenAI-compatible API |
+| **Cloudflare AI** | OpenAI-compatible API |
+| **HuggingFace** | OpenAI-compatible API |
+| **LongCat** | OpenAI-compatible API |
+| **Kilo** | OpenAI-compatible API |
+| **LLM7** | OpenAI-compatible API |
+| **Vercel AI Gateway** | OpenAI-compatible API |
+| **BlazeAPI** | OpenAI-compatible API |
+| **Pollinations** | OpenAI-compatible API |
+| **BazaarLink** | OpenAI-compatible API |
+| **Anthropic API** | Native Anthropic API |
+| **Ollama** | Local endpoint |
 
 ---
 
@@ -337,6 +377,25 @@ xattr -d com.apple.quarantine openrelay-macos
 
 > `xattr` removes macOS Gatekeeper quarantine flag — without it, macOS will block the unsigned binary.
 
+**Linux**:
+
+- x64: [Download openrelay-linux-x64](https://github.com/romgX/openrelay/releases/latest/download/openrelay-linux-x64)
+- ARM64 / aarch64: [Download openrelay-linux-arm64](https://github.com/romgX/openrelay/releases/latest/download/openrelay-linux-arm64)
+
+Then run the matching file in terminal:
+
+```bash
+# x64
+chmod +x openrelay-linux-x64
+./openrelay-linux-x64
+
+# ARM64 / aarch64
+chmod +x openrelay-linux-arm64
+./openrelay-linux-arm64
+```
+
+> Supported local / CLI providers on Linux: Claude Code, Kiro, Windsurf, OpenCode, VS Code Copilot, OpenAI Codex, Gemini CLI, and Rovo Dev. Claude Desktop and Antigravity have no Linux builds. QClaw depends on its desktop app and local gateway, with degraded behavior where unavailable. Credentials are stored via `secret-tool` (gnome-keyring) or file-based cache.
+
 Open `http://localhost:18765` → everything is managed from the Web dashboard.
 
 > Found it useful? Give us a **Star** ⭐ — it helps a lot!
@@ -345,11 +404,13 @@ Open `http://localhost:18765` → everything is managed from the Web dashboard.
 
 ## Security
 
-**Credentials never leave your machine.** All tokens, cookies, and API keys stay in local process memory. Nothing is uploaded anywhere.
+**Credentials stay local.** App tokens/cookies are read from your machine and used only to authenticate with their original provider. API keys you add in OpenRelay are stored locally under `~/.openrelay/`.
 
-**Direct connections only.** Requests go straight from your machine to the AI provider. No relay server in between.
+**Direct provider connections.** AI requests go from your machine to the selected AI provider. OpenRelay's own servers are not in the request path.
 
-**No request logging.** Message content is never logged, cached, or persisted.
+**No prompt logging by default.** Message content is not logged, cached, or persisted unless you explicitly enable request-shape debugging for local troubleshooting.
+
+**Minimal product network calls.** License and update checks may contact OpenRelay/GitHub endpoints, but they do not include provider credentials or conversation content.
 
 **Auditable.** The credential handling code ([cookie.ts](src/cookie.ts)) is available for security review.
 
@@ -361,15 +422,16 @@ Having trouble? Check the **[FAQ (English)](faq-en.md)** | **[常见问题 (中�
 
 ## Community
 
-- LINUX DO: [linux.do](https://linux.do)
+- **Official Community Forum**: [openrelay.cc](https://openrelay.cc) — guides, provider reviews, marketplace, bug reports
+- QQ Group / QQ 群: **1087788461**
 - Telegram Chat: [t.me/openrelay_chat](https://t.me/openrelay_chat)
 - Telegram Updates: [t.me/openrelay_updates](https://t.me/openrelay_updates)
 - Issues: [GitHub Issues](https://github.com/romgX/openrelay/issues)
 
-**Star** ⭐ this repo + join [Telegram group](https://t.me/openrelay_chat) → chance to get **1-2 months Pro free**.
+**Star** ⭐ this repo + join [forum](https://openrelay.cc) or [Telegram group](https://t.me/openrelay_chat) → chance to get **1-2 months Pro free**.
 
 ## License
 
 Open Core model:
 - **Framework** (proxy, format translation, config): [MIT](LICENSE)
-- **Pro features** (custom model groups, unlimited requests): [Commercial](COMMERCIAL-LICENSE.txt)
+- **Pro features** (custom model groups, higher request limits): [Commercial](COMMERCIAL-LICENSE.txt)
